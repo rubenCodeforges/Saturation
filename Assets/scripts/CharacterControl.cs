@@ -10,9 +10,10 @@ public class CharacterControl : MonoBehaviour
     public LayerMask groundLayer;
     public float groundCheckRadius;
 
-    [HideInInspector]
-    public float initialMass;
-    
+    [HideInInspector] public float initialMass;
+
+    public Joystick Joystick;
+
     private float moveHorizontal = 0f;
     private bool isGrounded;
 
@@ -23,7 +24,14 @@ public class CharacterControl : MonoBehaviour
 
     private void Update()
     {
-        moveHorizontal = Input.GetAxis("Horizontal");
+        if (Input.GetAxis("Horizontal") != 0f)
+        {
+            moveHorizontal = Input.GetAxis("Horizontal");
+        } else if (Joystick.Horizontal != 0f)
+        {
+            moveHorizontal = Joystick.Horizontal;
+        }
+
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
