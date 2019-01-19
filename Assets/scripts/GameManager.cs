@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour
         gameOverMenu.SetActive(true);
     }
 
+    public void disablePlayerControls()
+    {
+        FindObjectOfType<CharacterControl>().setControl(false);
+    }
+    
     public void restartGame()
     {
         SceneManager.LoadScene("Level01");
