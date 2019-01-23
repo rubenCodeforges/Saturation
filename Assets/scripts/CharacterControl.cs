@@ -10,7 +10,7 @@ public class CharacterControl : MonoBehaviour
 
     [HideInInspector] public float initialMass;
 
-    public Joystick Joystick;
+    public VirtualJoystick Joystick;
 
     private float moveHorizontal = 0f;
     private bool isGrounded;
@@ -66,9 +66,11 @@ public class CharacterControl : MonoBehaviour
         {
             moveHorizontal = Input.GetAxis("Horizontal");
         }
-        else if (Joystick.Horizontal != 0f)
+        else if (Joystick.inputDirection != Vector3.zero)
         {
-            moveHorizontal = Joystick.Horizontal;
+            moveHorizontal = Joystick.inputDirection.x;
+            Debug.Log(Joystick.inputDirection.x);
+
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded || jump && isGrounded )
