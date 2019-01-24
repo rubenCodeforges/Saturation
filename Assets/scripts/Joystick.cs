@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
-public class VirtualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
+public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
     private Image bgImage;
     private Image stick;
@@ -36,7 +37,7 @@ public class VirtualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, I
             stick.rectTransform.anchoredPosition = new Vector3(
                 inputDirection.x * (bgImage.rectTransform.sizeDelta.x / 3),
                 inputDirection.z * (bgImage.rectTransform.sizeDelta.y / 3)
-                );
+            );
         }
     }
 

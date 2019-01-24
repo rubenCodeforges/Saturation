@@ -10,7 +10,7 @@ public class CharacterControl : MonoBehaviour
 
     [HideInInspector] public float initialMass;
 
-    public VirtualJoystick Joystick;
+    public Joystick Joystick;
 
     private float moveHorizontal = 0f;
     private bool isGrounded;
