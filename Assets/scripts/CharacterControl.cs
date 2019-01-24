@@ -51,15 +51,14 @@ public class CharacterControl : MonoBehaviour
         if (hasControl)
         {
             rb.velocity = new Vector2(rb.velocity.x + moveHorizontal * speed * Time.deltaTime, rb.velocity.y);
-            
         }
     }
 
     public void OnJumpButton()
     {
-        jump = true;
+        jump = isGrounded;
     }
-    
+
     private void listenForInput()
     {
         if (Input.GetAxis("Horizontal") != 0f)
@@ -69,18 +68,20 @@ public class CharacterControl : MonoBehaviour
         else if (Joystick.inputDirection != Vector3.zero)
         {
             moveHorizontal = Joystick.inputDirection.x;
-            Debug.Log(Joystick.inputDirection.x);
-
+        }
+        else
+        {
+            moveHorizontal = 0f;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded || jump && isGrounded )
+        if (Input.GetButtonDown("Jump") && isGrounded || jump && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isGrounded = false;
             jump = false;
         }
     }
-    
+
     private void GroundCheck()
     {
         Collider2D[] colliders =
