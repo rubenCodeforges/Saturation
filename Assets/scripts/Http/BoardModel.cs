@@ -9,5 +9,6 @@ namespace Http
         public string gameName;
         public string userMachineId;
         public string userName;
+        public string score;
     }
 }

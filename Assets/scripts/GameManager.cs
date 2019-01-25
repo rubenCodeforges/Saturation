@@ -8,12 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject gameOverMenu;
     public GameObject levelCompleteMenu;
-
-    private void Awake()
-    {
-
-    }
-
+    public GameObject JoystickUI;
     public void endLevel()
     {
         levelCompleteMenu.SetActive(true);
@@ -22,6 +17,8 @@ public class GameManager : MonoBehaviour
     public void endGame()
     {
         gameOverMenu.SetActive(true);
+        JoystickUI.SetActive(false);
+        FindObjectOfType<ScoreManager>().ShowPlayerInput();
     }
 
     public void disablePlayerControls()
