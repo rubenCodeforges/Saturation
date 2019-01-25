@@ -73,6 +73,7 @@ public class ScoreManager : MonoBehaviour
             GameObject score = Instantiate(ScoreEntryPrefab);
             score.transform.SetParent(ScoreBoard.transform);
             score.transform.Find("UserName").GetComponent<Text>().text = boardModel.userName;
+            score.transform.Find("Time").GetComponent<Text>().text = boardModel.score;
             score.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
 

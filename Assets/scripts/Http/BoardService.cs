@@ -1,7 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -16,7 +17,7 @@ namespace Http
 
         public static IEnumerator LoadScores()
         {
-            UnityWebRequest uwr = UnityWebRequest.Get(URL);
+            UnityWebRequest uwr = UnityWebRequest.Get(URL + "/" + GAME_NAME);
             yield return uwr.SendWebRequest();
             HandleResponse(uwr, () => scores = JsonHelper.FromJson<BoardModel>(uwr.downloadHandler.text));
         }
@@ -24,29 +25,13 @@ namespace Http
         public static IEnumerator SaveOrUpdateScores(string userName, string score)
         {
             var newScore = FindOrCreateScore(userName, score);
-            var uwr = UnityWebRequest.Post(URL, JsonUtility.ToJson(newScore));
+            Debug.Log("Sending: " + JsonUtility.ToJson(newScore));
 
-            yield return uwr.SendWebRequest();
+            var request = sendPost(newScore);
 
-            HandleResponse(uwr, () =>
-            {
-                List<BoardModel> scoreList = scores.ToList();
+            yield return request.SendWebRequest();
 
-                for (int i = 0; i < scoreList.Count; i++)
-                {
-                    BoardModel response = JsonUtility.FromJson<BoardModel>(uwr.downloadHandler.text);
-                    if (scoreList[i].userMachineId == newScore.userMachineId)
-                    {
-                        scoreList[i] = response;
-                    }
-                    else
-                    {
-                        scoreList.Add(response);
-                    }
-                }
-
-                scores = scoreList.ToArray();
-            });
+            HandleResponse(request, () => { });
         }
 
 
@@ -60,6 +45,7 @@ namespace Http
             if (uwr.isNetworkError)
             {
                 Debug.Log("Error While Sending: " + uwr.error);
+                throw new NetworkInformationException();
             }
             else
             {
@@ -70,21 +56,32 @@ namespace Http
 
         private static BoardModel FindOrCreateScore(string userName, string score)
         {
-            BoardModel foundScore = scores.ToList().Find(model => model.userMachineId == SystemInfo.deviceUniqueIdentifier);
-            
+            BoardModel foundScore =
+                scores.ToList().Find(model => model.userMachineId == SystemInfo.deviceUniqueIdentifier);
+
             if (foundScore != null)
             {
                 foundScore.score = score;
                 foundScore.userName = userName;
                 return foundScore;
             }
-            
+
             BoardModel newScore = new BoardModel();
             newScore.gameName = GAME_NAME;
             newScore.userName = userName;
             newScore.userMachineId = SystemInfo.deviceUniqueIdentifier;
             newScore.score = score;
             return newScore;
+        }
+
+        private static UnityWebRequest sendPost<T>(T payload)
+        {
+            UnityWebRequest request = new UnityWebRequest(URL, "POST");
+            UploadHandler uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonUtility.ToJson(payload)));
+            request.uploadHandler = uploadHandler;
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            return request;
         }
     }
 }

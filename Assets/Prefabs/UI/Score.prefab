@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2129231004940520375}
   - component: {fileID: 2129231004940520370}
   - component: {fileID: 2129231004940520373}
-  - component: {fileID: 2129231004940520372}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -80,21 +79,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Time
---- !u!114 &2129231004940520372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129231004940520374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b508b067e8094e89a66dc59c11063d44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScoreCounter: {fileID: 0}
-  ScoreBoard: {fileID: 0}
-  ScoreEntryPrefab: {fileID: 0}
 --- !u!1 &2129231005029182388
 GameObject:
   m_ObjectHideFlags: 0
