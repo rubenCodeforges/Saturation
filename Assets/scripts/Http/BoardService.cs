@@ -5,7 +5,6 @@ using System.Net.NetworkInformation;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
-using Random = UnityEngine.Random;
 
 namespace Http
 {
@@ -58,7 +57,8 @@ namespace Http
         private static BoardModel FindOrCreateScore(string userName, string score)
         {
             BoardModel foundScore =
-                scores.ToList().Find(model => model.userMachineId == SystemInfo.deviceUniqueIdentifier);
+                scores.ToList().Find(model =>
+                    model.userMachineId == SystemInfo.deviceUniqueIdentifier || model.userName == userName);
 
             if (foundScore != null)
             {
@@ -70,9 +70,7 @@ namespace Http
             BoardModel newScore = new BoardModel();
             newScore.gameName = GAME_NAME;
             newScore.userName = userName;
-            newScore.userMachineId = SystemInfo.deviceUniqueIdentifier == "n/a"
-                ? generateIDCode()
-                : SystemInfo.deviceUniqueIdentifier;
+            newScore.userMachineId = SystemInfo.deviceUniqueIdentifier;
             newScore.score = score;
             return newScore;
         }
@@ -85,20 +83,6 @@ namespace Http
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
             return request;
-        }
-
-        private static string generateIDCode()
-        {
-            var desiredCodeLength = 15;
-            var code = "";
-            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
-            while (code.Length < desiredCodeLength)
-            {
-                code += characters[Random.Range(0, characters.Length)];
-            }
-
-            code += DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
-            return code;
         }
     }
 }
