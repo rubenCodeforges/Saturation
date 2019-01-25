@@ -57,8 +57,7 @@ namespace Http
         private static BoardModel FindOrCreateScore(string userName, string score)
         {
             BoardModel foundScore =
-                scores.ToList().Find(model =>
-                    model.userMachineId == SystemInfo.deviceUniqueIdentifier || model.userName == userName);
+                scores.ToList().Find(model => model.userName == userName);
 
             if (foundScore != null)
             {
