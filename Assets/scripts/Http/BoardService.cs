@@ -10,7 +10,7 @@ namespace Http
 {
     public static class BoardService
     {
-        private static readonly string URL = "https://codeforges-sandbox.herokuapp.com/board/Saturation";
+        private static readonly string URL = "https://codeforges-sandbox.herokuapp.com/board";
         private static readonly string GAME_NAME = "Saturation";
 
         private static BoardModel[] scores;

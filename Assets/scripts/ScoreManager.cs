@@ -11,6 +11,7 @@ public class ScoreManager : MonoBehaviour
     public GameObject ScoreEntryPrefab;
     public GameObject PlayerNameInput;
     public GameObject RestartButton;
+    public GameObject title;
 
     private float score = 0f;
     private BoardModel currentPlayer;
@@ -18,16 +19,19 @@ public class ScoreManager : MonoBehaviour
 
     public void ShowScores()
     {
+        title.SetActive(true);
         ScoreBoard.SetActive(true);
         StartCoroutine(LoadScore());
     }
 
+    public void disableTimer()
+    {
+        isTimerRunning = false;
+    }
+
     public void ShowPlayerInput()
     {
-        if (currentPlayer != null)
-        {
-            PlayerNameInput.SetActive(false);
-        }
+        PlayerNameInput.SetActive(true);
     }
 
     public void OnPlayerSubmit(Text PlayerName)
@@ -44,7 +48,6 @@ public class ScoreManager : MonoBehaviour
             currentPlayer.score = score.ToString();
         }
 
-        isTimerRunning = false;
         PlayerNameInput.SetActive(false);
         RestartButton.SetActive(true);
         StartCoroutine(UpdateScore(currentPlayer.userName, currentPlayer.score));
@@ -68,16 +71,16 @@ public class ScoreManager : MonoBehaviour
     private IEnumerator LoadScore()
     {
         yield return StartCoroutine(BoardService.LoadScores());
+        int position = 1;
         foreach (BoardModel boardModel in BoardService.GetScores())
         {
             GameObject score = Instantiate(ScoreEntryPrefab);
             score.transform.SetParent(ScoreBoard.transform);
-            score.transform.Find("UserName").GetComponent<Text>().text = boardModel.userName;
+            score.transform.Find("UserName").GetComponent<Text>().text = position + ". " + boardModel.userName;
             score.transform.Find("Time").GetComponent<Text>().text = boardModel.score;
             score.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            position++;
         }
-
-        Debug.Log(BoardService.GetScores()[0].gameName);
     }
 
     private IEnumerator UpdateScore(string userName, string score)
