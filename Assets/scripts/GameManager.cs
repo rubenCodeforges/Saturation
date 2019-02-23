@@ -5,12 +5,12 @@ public class GameManager : MonoBehaviour
 {
     public GameObject gameOverMenu;
     public GameObject levelCompleteMenu;
-    public GameObject JoystickUI;
+//    public GameObject JoystickUI;
 
     public void endLevel()
     {
         levelCompleteMenu.SetActive(true);
-        JoystickUI.SetActive(false);
+//        JoystickUI.SetActive(false);
 
         ScoreManager sm = FindObjectOfType<ScoreManager>();
         sm.ShowPlayerInput();
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public void endGame()
     {
         gameOverMenu.SetActive(true);
-        JoystickUI.SetActive(false);
+//        JoystickUI.SetActive(false);
         ScoreManager sm = FindObjectOfType<ScoreManager>();
         sm.ShowScores();
     }

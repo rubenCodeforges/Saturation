@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 31867581744642757}
   - component: {fileID: 31867581744642618}
   - component: {fileID: 31867581744642619}
-  - component: {fileID: 488390423932177593}
+  - component: {fileID: 7217986162999068259}
   m_Layer: 0
   m_Name: GrassCollisionParticles
   m_TagString: Untagged
@@ -4698,7 +4698,7 @@ ParticleSystem:
 --- !u!199 &31867581744642619
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4757,7 +4757,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &488390423932177593
+--- !u!114 &7217986162999068259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4766,7 +4766,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 31867581744642616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d2ce101544c412298b9df759f118756, type: 3}
+  m_Script: {fileID: 11500000, guid: 247fdb664d033fa4b8ed1e6204a7c886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 3
+  triggerParticles: {fileID: 31867581744642618}
